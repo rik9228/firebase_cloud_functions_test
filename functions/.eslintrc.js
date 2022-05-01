@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     "object-curly-spacing": 0,
     quotes: ["error", "double"],
+    "no-unused-vars": 0,
   },
   parserOptions: {
     ecmaVersion: 8,
