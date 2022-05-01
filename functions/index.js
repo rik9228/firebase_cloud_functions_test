@@ -6,23 +6,26 @@ admin.initializeApp();
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 
-exports.sendWelcomeEmail = functions.auth.user().onCreate(async (user) => {
-  const email = user.email;
-  console.info(`登録ユーザーのE-Mail：${email}`);
+exports.noticeCreateEvent = functions.storage.object().onFinalize((object) => {
+  const bucketName = object.bucket;
+  const fileName = object.name;
+  const fileSize = object.size;
+  const contentType = object.contentType;
 
-  // メールを送信する処理
-  // sendMail(email)
-
+  console.log(
+    `バケット：${bucketName}\nファイル名：${fileName}\nファイルサイズ：${fileSize}byte\nコンテンツタイプ：${contentType}`
+  );
   return;
 });
 
-exports.deleteUserData = functions.auth.user().onDelete(async (user) => {
-  const userId = user.uid;
-  console.info(`削除されたユーザーID：${userId}`);
+exports.noticeDeleteEvent = functions.storage.object().onDelete((object) => {
+  const bucketName = object.bucket;
+  const fileName = object.name;
+  const fileSize = object.size;
+  const contentType = object.contentType;
 
-  // 該当ユーザーのDB上のデータを削除する処理
-  // 例）deleteUserDataFromFirestore(userId)
-  // 例）deleteUserDataFromStorage(userId)
-
+  console.log(
+    `バケット：${bucketName}\nファイル名：${fileName}\nファイルサイズ：${fileSize}byte\nコンテンツタイプ：${contentType}`
+  );
   return;
 });
